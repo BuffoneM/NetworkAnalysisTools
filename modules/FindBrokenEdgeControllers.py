@@ -28,10 +28,8 @@ def loadConnections(fileName):
     return controllerList
 
 # Accept an IP address and attempt to ping it
-def testModemConnectivity(currHost):
+def testModemConnectivity(currIP):
     success = False
-    
-    currIP = currHost[0]
     
     start = time.time()
     response = os.system('ping -n 1 ' + currIP)
@@ -56,6 +54,8 @@ def main():
     # ---------------------------- #
 
     print('Intializing loadConnections()...')
+    # -Testing purposes-
+    #connections = loadConnections(fileName)[:50]
     connections = loadConnections(fileName)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
@@ -69,8 +69,9 @@ def main():
         print('-----------------------------')
         print('----- Summary Dataframe -----')
         print('-----------------------------')
-        print('Successful ping count:', (dataframe['Success'] == True).sum())
-        print('Unsuccessful ping count:', (dataframe['Success'] == False).sum())
+        
+        print('Ping summary:')
+        print(dataframe.Success.value_counts(), '\n')
         print(dataframe)
         
         if (outputToCSV):

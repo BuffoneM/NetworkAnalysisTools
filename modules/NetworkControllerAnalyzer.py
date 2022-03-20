@@ -28,7 +28,6 @@ def loadConnections(fileName):
 
 # Given a controller, test it, and return
 def testConnection(currController):
-        print(currController)
         success = False
         
         hostname = currController[1]
