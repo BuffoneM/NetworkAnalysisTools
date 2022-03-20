@@ -1,6 +1,14 @@
 
 
-def runFindBrokenEdgeControllers():
-    print('hello, world!')
+# Main method                        
+def main():
+     
+    # ------ Main Variables ------ #
+    fileName = None
+    # ---------------------------- #
+
+    print('Intializing workerFunction()...')
     
-runFindBrokenEdgeControllers()
+
+if __name__ == '__main__':
+    main()

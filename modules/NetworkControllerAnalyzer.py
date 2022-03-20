@@ -14,7 +14,6 @@ import csv
 import time
 import numpy as np
 import pandas as pd
-import subprocess
 import multiprocessing as mp
 
 # Read the CSV file -> opens automatically closes file connection
