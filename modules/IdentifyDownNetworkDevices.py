@@ -11,10 +11,14 @@
 
 import os
 import csv
+import sys
 import time
 import numpy as np
 import pandas as pd
 import multiprocessing as mp
+
+sys.path.append(os.path.join(sys.path[0], '..'))
+import Utility
 
 # [header = "IP"]
 # Read the CSV file -> open automatically closes file connection
@@ -48,16 +52,21 @@ def testModemConnectivity(currIP):
 def main():
      
     # ------ Main Variables ------ #
-    fileName = 'public_ip_address_varchar_45'
+    filePath = Utility.getFilePath()
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
+    
+    if filePath == None:
+        print('Invalid file entered...')
+        exit()
+
+    print(filePath)
 
     print('Intializing loadConnections()...')
-    fileLocation = './files/' + fileName + '.csv'
     # -Testing purposes-
-    #connections = loadConnections(fileName)[:50]
-    connections = loadConnections(fileLocation)
+    connections = loadConnections(filePath)[:50]
+    #connections = loadConnections(filePath)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
     
@@ -76,7 +85,8 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('./files/' + fileName + '_output.csv')
+            newFilePath = Utility.createOutputFilePath(filePath)
+            dataframe.to_csv(newFilePath)
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':

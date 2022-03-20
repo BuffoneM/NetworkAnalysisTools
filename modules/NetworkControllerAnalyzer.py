@@ -11,11 +11,16 @@
 
 import os
 import csv
+import sys
 import time
 import numpy as np
 import pandas as pd
 import multiprocessing as mp
 
+sys.path.append(os.path.join(sys.path[0], '..'))
+import Utility
+
+# [header = 'Live Unit', 'Calculated IP']
 # Read the CSV file -> open automatically closes file connection
 def loadConnections(fileName):
     controllerList = []
@@ -48,14 +53,19 @@ def testConnection(currController):
 def main():
     
     # ------ Main Variables ------ #
-    fileName = 'edge_controllers_down'
+    filePath = Utility.getFilePath()
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
+    
+    if filePath == None:
+        print('Invalid file entered...')
+        exit()
+
+    print(filePath)
 
     print('Intializing loadControllers()...')
-    fileLocation = './files/' + fileName + '.csv'
-    connections = loadConnections(fileLocation)
+    connections = loadConnections(filePath)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testConnection, connections)
 
@@ -71,7 +81,8 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('./files/' + fileName + '_output.csv')
+            newFilePath = Utility.createOutputFilePath(filePath)
+            dataframe.to_csv(newFilePath)
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':
