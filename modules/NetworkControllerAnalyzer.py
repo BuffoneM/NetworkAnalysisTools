@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 import multiprocessing as mp
 
-# Read the CSV file -> opens automatically closes file connection
+# Read the CSV file -> open automatically closes file connection
 def loadConnections(fileName):
     controllerList = []
     with open(fileName, newline = '') as csvfile:
@@ -28,6 +28,7 @@ def loadConnections(fileName):
 
 # Given a controller, test it, and return
 def testConnection(currController):
+        print(currController)
         success = False
         
         hostname = currController[1]
@@ -57,7 +58,7 @@ def main():
     connections = loadConnections(fileName)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testConnection, connections)
-        
+
     # Successful datagram print
     if connectionsInfo != []:
         dataframe = pd.DataFrame(
@@ -70,7 +71,7 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('files/output.csv')
+            dataframe.to_csv('files/edge_controllers_down_output.csv')
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':
