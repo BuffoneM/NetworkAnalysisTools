@@ -48,15 +48,16 @@ def testModemConnectivity(currIP):
 def main():
      
     # ------ Main Variables ------ #
-    fileName = './files/public_ip_address_varchar_45_.csv'
+    fileName = 'public_ip_address_varchar_45'
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
 
     print('Intializing loadConnections()...')
+    fileLocation = './files/' + fileName + '.csv'
     # -Testing purposes-
     #connections = loadConnections(fileName)[:50]
-    connections = loadConnections(fileName)
+    connections = loadConnections(fileLocation)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
     
@@ -75,7 +76,7 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('./files/public_ip_address_varchar_45_output.csv')
+            dataframe.to_csv('./files/' + fileName + '_output.csv')
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':

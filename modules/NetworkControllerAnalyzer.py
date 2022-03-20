@@ -48,13 +48,14 @@ def testConnection(currController):
 def main():
     
     # ------ Main Variables ------ #
-    fileName = './files/edge_controllers_down.csv'
+    fileName = 'edge_controllers_down'
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
 
     print('Intializing loadControllers()...')
-    connections = loadConnections(fileName)
+    fileLocation = './files/' + fileName + '.csv'
+    connections = loadConnections(fileLocation)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testConnection, connections)
 
@@ -70,7 +71,7 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('./files/edge_controllers_down_output.csv')
+            dataframe.to_csv('./files/' + fileName + '_output.csv')
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':
