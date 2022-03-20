@@ -1,6 +1,4 @@
 import os
-#from modules.NetworkControllerAnalyzer import runNetworkControllerAnalyzer
-#import modules
 
 def selectProgram(src):
     dirCount = 0
@@ -11,32 +9,30 @@ def selectProgram(src):
             if fileName.endswith('.py'):
                 dirCount += 1
                 listOfFiles.append(os.path.join(dirPath, fileName))
-                print('(', dirCount, ') -', fileName)     
-                    
-    exec(open('modules/NetworkControllerAnalyzer.py').read())
-                   
+                print('(', dirCount, ') -', fileName)                                        
+        
     # Menu system for only integers                                   
     menuSelect = input('Enter program number: ')
     try:
         menuSelect = int(menuSelect)
     except ValueError:
         print('Input a valid integer...')
+        exit()
     
-    if menuSelect < 0 or menuSelect > listOfFiles.count:
+    if menuSelect < 0 or menuSelect > dirCount:
         print('Invalid selection...') 
     elif menuSelect == 0:
         print('Exiting...')
         exit()
-        
-    
-
-                
-
+    else:
+        execStatement = 'python ' + listOfFiles[0 + 1]
+        os.system(execStatement)
+             
 # Main method                        
 def main():
-    print('\n------ Main ------')
+    print('\n------ Main ------')    
     src = 'modules'
-    selectProgram(src)   
+    selectProgram(src)
     
     
 if __name__ == '__main__':
