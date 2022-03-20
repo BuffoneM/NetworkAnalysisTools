@@ -50,7 +50,7 @@ def testModemConnectivity(currHost):
 def main():
      
     # ------ Main Variables ------ #
-    fileName = 'files/public_ip_address_varchar_45_.csv'
+    fileName = './files/public_ip_address_varchar_45_.csv'
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
@@ -74,7 +74,7 @@ def main():
         print(dataframe)
         
         if (outputToCSV):
-            dataframe.to_csv('files/public_ip_address_varchar_45_output.csv')
+            dataframe.to_csv('./files/public_ip_address_varchar_45_output.csv')
             print('Successfully wrote to file...')
 
 if __name__ == '__main__':

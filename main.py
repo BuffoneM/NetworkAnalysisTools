@@ -5,7 +5,7 @@ def selectProgram(src):
     dirCount = 0
     listOfFiles = []
     print('( 0 ) - Exit program')
-    for file in glob.glob('modules/*.py'):
+    for file in glob.glob('./modules/*.py'):
         dirCount += 1
         listOfFiles.append(file)
         print('(', dirCount, ') -', file)                                        
