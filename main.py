@@ -1,15 +1,14 @@
+import glob
 import os
 
 def selectProgram(src):
     dirCount = 0
     listOfFiles = []
     print('( 0 ) - Exit program')
-    for (dirPath, dirNames, files) in os.walk(src):
-        for fileName in files:
-            if fileName.endswith('.py'):
-                dirCount += 1
-                listOfFiles.append(os.path.join(dirPath, fileName))
-                print('(', dirCount, ') -', fileName)                                        
+    for file in glob.glob('modules/*.py'):
+        dirCount += 1
+        listOfFiles.append(file)
+        print('(', dirCount, ') -', file)                                        
         
     # Menu system for only integers                                   
     menuSelect = input('Enter program number: ')
