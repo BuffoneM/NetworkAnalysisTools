@@ -65,8 +65,8 @@ def main():
 
     print('Intializing loadConnections()...')
     # -Testing purposes-
-    connections = loadConnections(filePath)[:50]
-    #connections = loadConnections(filePath)
+    #connections = loadConnections(filePath)[:50]
+    connections = loadConnections(filePath)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
     
