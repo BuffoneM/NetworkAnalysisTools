@@ -24,7 +24,7 @@ def selectProgram(src):
         print('Exiting...')
         exit()
     else:
-        execStatement = 'python ' + listOfFiles[menuSelect - 1]
+        execStatement = 'python3 ' + listOfFiles[menuSelect - 1]
         os.system(execStatement)
              
 # Main method                        
