@@ -53,7 +53,6 @@ def main():
      
     # ------ Main Variables ------ #
     filePath = Utility.getFilePath('./files/*.csv')
-    outputToCSV = True
     numThreads = 25
     # ---------------------------- #
     
