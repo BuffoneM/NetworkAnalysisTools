@@ -68,24 +68,12 @@ def main():
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
     
-    # Successful datagram print
-    if connectionsInfo != []:
-        dataframe = pd.DataFrame(
-            data = connectionsInfo,
-            columns = ['Calculated IP', 'Success', 'Time']
-        )
-        print('-----------------------------')
-        print('----- Summary Dataframe -----')
-        print('-----------------------------')
-        
-        print('Ping summary:')
-        print(dataframe.Success.value_counts(), '\n')
-        print(dataframe)
-        
-        if (outputToCSV):
-            newFilePath = Utility.createOutputFilePath(filePath)
-            dataframe.to_csv(newFilePath)
-            print('Successfully wrote to file...')
+    columns = ['Calculated IP', 'Success', 'Time']
+    dataframe = Utility.generateDataFrame('identifydownnetworkdevices', filePath, connectionsInfo, columns)
+    
+    print('Ping summary:')
+    print(dataframe.Success.value_counts(), '\n')
+    print(dataframe)
 
 if __name__ == '__main__':
     main()

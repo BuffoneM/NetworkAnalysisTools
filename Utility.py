@@ -1,4 +1,6 @@
 import glob
+import numpy as np
+import pandas as pd
 
 # Return filePath if it exists, otherwise None
 def getFilePath(src):
@@ -29,5 +31,24 @@ def getFilePath(src):
         return listOfFiles[menuSelect - 1]
 
 # Return new filePath with _output appended
-def createOutputFilePath(filePath):
-    return filePath.replace('.csv', '_output.csv')
+def createOutputFilePath(filePath, programName):
+    return filePath.replace('.csv', ('_' + programName + '_output.csv'))
+
+# Output data to file
+def generateDataFrame(programName, filePath, userData, userColumns):
+    # Successful datagram print
+    if userData != []:
+        dataframe = pd.DataFrame(
+            data = userData,
+            columns = userColumns
+        )
+        print('-----------------------------')
+        print('----- Summary Dataframe -----')
+        print('-----------------------------')
+        print(dataframe)
+        
+        newFilePath = createOutputFilePath(filePath, programName)
+        dataframe.to_csv(newFilePath)
+        print('Successfully wrote to file...')
+        
+        return dataframe

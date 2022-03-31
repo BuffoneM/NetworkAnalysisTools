@@ -13,8 +13,6 @@ import os
 import csv
 import sys
 import time
-import numpy as np
-import pandas as pd
 import multiprocessing as mp
 
 sys.path.append(os.path.join(sys.path[0], '..'))
@@ -54,7 +52,6 @@ def main():
     
     # ------ Main Variables ------ #
     filePath = Utility.getFilePath('./files/*.csv')
-    outputToCSV = True
     numThreads = 25
     # ---------------------------- #
     
@@ -67,21 +64,8 @@ def main():
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testConnection, connections)
 
-    # Successful datagram print
-    if connectionsInfo != []:
-        dataframe = pd.DataFrame(
-            data = connectionsInfo,
-            columns = ['Live Unit', 'Calculated IP', 'Success', 'Time']
-        )
-        print('-----------------------------')
-        print('----- Summary Dataframe -----')
-        print('-----------------------------')
-        print(dataframe)
-        
-        if (outputToCSV):
-            newFilePath = Utility.createOutputFilePath(filePath)
-            dataframe.to_csv(newFilePath)
-            print('Successfully wrote to file...')
+    columns = ['Live Unit', 'Calculated IP', 'Success', 'Time']
+    Utility.generateDataFrame('networkcontrolleranalyzer', filePath, connectionsInfo, columns)
 
 if __name__ == '__main__':
     main()
