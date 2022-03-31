@@ -9,15 +9,17 @@ def selectProgram():
     
     if filePath == None:
         print('Invalid file entered...')
-        exit()
+        return
         
     execStatement = 'python ' + filePath
     os.system(execStatement)
              
 # Main method                        
 def main():
-    print('\n------ Main ------')    
-    selectProgram()
+    print('\n------ Main ------')
+    while True:    
+        selectProgram()
+        input("Press Enter to continue...")
     
 if __name__ == '__main__':
     main()

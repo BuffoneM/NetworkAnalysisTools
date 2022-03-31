@@ -10,26 +10,12 @@
 ##
 
 import os
-import csv
 import sys
 import time
-import numpy as np
-import pandas as pd
 import multiprocessing as mp
 
 sys.path.append(os.path.join(sys.path[0], '..'))
 import Utility
-
-# [header = "IP"]
-# Read the CSV file -> open automatically closes file connection
-def loadConnections(fileName):
-    controllerList = []
-    with open(fileName, newline = '') as csvfile:
-        controllerReader = csv.DictReader(csvfile, delimiter = ',')
-        for row in controllerReader:
-            currController = row['IP']
-            controllerList.append(currController)
-    return controllerList
 
 # Accept an IP address and attempt to ping it
 def testModemConnectivity(currIP):
@@ -58,12 +44,12 @@ def main():
     
     if filePath == None:
         print('Invalid file entered...')
-        exit()
+        return
 
     print('Intializing loadConnections()...')
     # -Testing purposes-
     #connections = loadConnections(filePath)[:50]
-    connections = loadConnections(filePath)
+    connections = Utility.loadConnections_IP_Header(filePath)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(testModemConnectivity, connections)
     

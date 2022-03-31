@@ -1,3 +1,4 @@
+import csv
 import glob
 import numpy as np
 import pandas as pd
@@ -18,8 +19,7 @@ def getFilePath(src):
     try:
         menuSelect = int(menuSelect)
     except ValueError:
-        print('Input a valid integer...')
-        exit()
+        return None
     
     if menuSelect < 0 or menuSelect > dirCount:
         print('Invalid selection...')
@@ -52,3 +52,15 @@ def generateDataFrame(programName, filePath, userData, userColumns):
         print('Successfully wrote to file...')
         
         return dataframe
+    
+# Load connections given ['IP'] header file
+# [header = "IP"]
+# Read the CSV file -> open automatically closes file connection
+def loadConnections_IP_Header(fileName):
+    controllerList = []
+    with open(fileName, newline = '') as csvfile:
+        controllerReader = csv.DictReader(csvfile, delimiter = ',')
+        for row in controllerReader:
+            currController = row['IP']
+            controllerList.append(currController)
+    return controllerList

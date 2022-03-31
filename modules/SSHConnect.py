@@ -22,17 +22,6 @@ import multiprocessing as mp
 sys.path.append(os.path.join(sys.path[0], '..'))
 import Utility
 
-# [header = "IP"]
-# Read the CSV file -> open automatically closes file connection
-def loadConnections(fileName):
-    controllerList = []
-    with open(fileName, newline = '') as csvfile:
-        controllerReader = csv.DictReader(csvfile, delimiter = ',')
-        for row in controllerReader:
-            currController = row['IP']
-            controllerList.append(currController)
-    return controllerList
-
 # Accept an IP address and attempt to SSH
 def attemptSSH(currIP):
     success = False
@@ -75,10 +64,10 @@ def main():
     
     if filePath == None:
         print('Invalid file entered...')
-        exit()
+        return
 
     print('Intializing attemptSSH()...')
-    connections = loadConnections(filePath)
+    connections = Utility.loadConnections_IP_Header(filePath)
     pool = mp.Pool(numThreads)
     connectionsInfo = pool.map(attemptSSH, connections)
 
