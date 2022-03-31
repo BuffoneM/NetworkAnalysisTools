@@ -1,38 +1,23 @@
-import glob
 import os
+import sys
 
-def selectProgram(src):
-    dirCount = 0
-    listOfFiles = []
-    print('( 0 ) - Exit program')
-    for file in glob.glob('./modules/*.py'):
-        dirCount += 1
-        listOfFiles.append(file)
-        print('(', dirCount, ') -', file)                                        
-        
-    # Menu system for only integers                                   
-    menuSelect = input('Enter program number: ')
-    try:
-        menuSelect = int(menuSelect)
-    except ValueError:
-        print('Input a valid integer...')
-        exit()
+sys.path.append(os.path.join(sys.path[0], '..'))
+import Utility
+
+def selectProgram():
+    filePath = Utility.getFilePath('./modules/*.py')
     
-    if menuSelect < 0 or menuSelect > dirCount:
-        print('Invalid selection...') 
-    elif menuSelect == 0:
-        print('Exiting...')
+    if filePath == None:
+        print('Invalid file entered...')
         exit()
-    else:
-        execStatement = 'python3 ' + listOfFiles[menuSelect - 1]
-        os.system(execStatement)
+        
+    execStatement = 'python ' + filePath
+    os.system(execStatement)
              
 # Main method                        
 def main():
     print('\n------ Main ------')    
-    src = 'modules'
-    selectProgram(src)
-    
+    selectProgram()
     
 if __name__ == '__main__':
     main()

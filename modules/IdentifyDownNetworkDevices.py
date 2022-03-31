@@ -52,7 +52,7 @@ def testModemConnectivity(currIP):
 def main():
      
     # ------ Main Variables ------ #
-    filePath = Utility.getFilePath()
+    filePath = Utility.getFilePath('./files/*.csv')
     outputToCSV = True
     numThreads = 25
     # ---------------------------- #
@@ -60,8 +60,6 @@ def main():
     if filePath == None:
         print('Invalid file entered...')
         exit()
-
-    print(filePath)
 
     print('Intializing loadConnections()...')
     # -Testing purposes-
